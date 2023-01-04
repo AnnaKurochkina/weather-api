@@ -18,12 +18,8 @@ const Weather = ({ geoLongitude, geoLatitude }) => {
     const [currentLongitude, setCurrentLongitude] = useState(geoLongitude);
     const [city, setCity] = useState(null);
 
-    const primary = red[500]; // #f44336
-    // const accent = purple["A200"]; // #e040fb
-    // const accent = purple.A200; // #e040fb (alternative method)
-
     const getCities = async (searchTerm) => {
-        const url = `http://api.weatherapi.com/v1/search.json?key=${process.env.REACT_APP_API_KEY}&q=${searchTerm}`;
+        const url = `https://api.weatherapi.com/v1/search.json?key=${process.env.REACT_APP_API_KEY}&q=${searchTerm}`;
         const res = await fetch(url);
         const searchResults = await res.json();
         setCityOptions(searchResults);
@@ -37,7 +33,7 @@ const Weather = ({ geoLongitude, geoLatitude }) => {
     };
 
     const getLocationDetails = async () => {
-        const url = `http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_API_KEY}&q=${currentLatitude},${currentLongitude}&aqi=no2`;
+        const url = `https://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_API_KEY}&q=${currentLatitude},${currentLongitude}&aqi=no2`;
         const res = await fetch(url);
         const data = await res.json();
         setDetails(data);
@@ -49,7 +45,7 @@ const Weather = ({ geoLongitude, geoLatitude }) => {
     };
 
     const getForecast = async () => {
-        const url = `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${currentLatitude},${currentLongitude}&days=4&aqi=yes&alerts=yes`;
+        const url = `https://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${currentLatitude},${currentLongitude}&days=4&aqi=yes&alerts=yes`;
         const res = await fetch(url);
         const dataForecast = await res.json();
         setForecast(dataForecast);
