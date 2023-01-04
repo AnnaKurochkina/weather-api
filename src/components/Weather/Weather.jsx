@@ -1,8 +1,9 @@
 import "./Weather.scss";
 import { useState, useEffect } from "react";
 import { Autocomplete, TextField } from "@mui/material";
+import { Grid, GridItem, Image  } from "@chakra-ui/react"
 
-const Weather = ({ longitude, latitude }) => {
+const Weather = ({ geoLongitude, geoLatitude }) => {
     const [details, setDetails] = useState({});
     const [forecast, setForecast] = useState({});
     const [weatherForecast, setWeatherForecast] = useState([]);
@@ -12,6 +13,8 @@ const Weather = ({ longitude, latitude }) => {
     const [lastUpdated, setLastUpdated] = useState("");
     const [temperature, setTemperature] = useState("");
     const [cityOptions, setCityOptions] = useState([]);
+    const [currentLatitude, setCurrentLatitude] = useState(geoLatitude);
+    const [currentLongitude, setCurrentLongitude] = useState(geoLongitude);
 
     // const [search, setSearch] = useState("");
     // const [searchImg, setSearchImg] = useState("url");
@@ -32,7 +35,7 @@ const Weather = ({ longitude, latitude }) => {
     };
 
     const getLocationDetails = async () => {
-        const url = `http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_API_KEY}&q=${latitude},${longitude}&aqi=no2`;
+        const url = `http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_API_KEY}&q=${currentLatitude},${currentLongitude}&aqi=no2`;
         const res = await fetch(url);
         const data = await res.json();
         setDetails(data);
@@ -44,7 +47,7 @@ const Weather = ({ longitude, latitude }) => {
     };
 
     const getForecast = async () => {
-        const url = `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${latitude},${longitude}&days=4&aqi=yes&alerts=yes`;
+        const url = `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${currentLatitude},${currentLongitude}&days=4&aqi=yes&alerts=yes`;
         const res = await fetch(url);
         const dataForecast = await res.json();
         setForecast(dataForecast);
@@ -63,39 +66,28 @@ const Weather = ({ longitude, latitude }) => {
     useEffect(() => {
         getLocationDetails();
         getForecast();
-    }, [latitude, longitude]);
+    }, [currentLatitude, currentLongitude]);
 
     return (
         <div>
-            <form>
-                <label>Enter location: </label>
-                <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    onInputChange={onInputChange}
-                    value={city}
-                    onChange={(event, newCity) => {
-                        setCity(newCity);
-						latitude = newCity.lat;
-						longitude = newCity.lon;
-                    }}
-                    getOptionLabel={(option) => option.name}
-                    options={cityOptions}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => (
-                        <TextField {...params} label="City" />
-                    )}
-                />
-                {/* <button onClick={(e) => setLocationName({ city })}>
-                    search
-                </button> */}
-            </form>
-            {/* {!city || city == "" ? (
-                <h3>Current weather in {locationName}: </h3>
-            ) : (
-                <h3>Current weather in {city}: </h3>
-            )} */}
-            <div className="current-weather">
+            {/* <label>Enter location: </label> */}
+            <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                onInputChange={onInputChange}
+                value={city}
+                onChange={(event, newCity) => {
+                    setCity(newCity);
+                    setCurrentLatitude(newCity.lat);
+                    setCurrentLongitude(newCity.lon);
+                }}
+                getOptionLabel={(option) => option.name}
+                options={cityOptions}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="City" />}
+            />
+            {/* <h3>Current weather in {locationName}: </h3> */}
+            {/* <div className="current-weather">
                 <img src={icon} alt="icon" />
                 <p>{temperature}&#176;C</p>
                 <p>{localWeather}</p>
@@ -122,7 +114,18 @@ const Weather = ({ longitude, latitude }) => {
                         </div>
                     </div>
                 ))}
-            </div>
+            </div> */}
+
+			{weatherForecast.map((d) => (
+            <Grid templateColumns="repeat(6, 1fr)" gap={6} key={d.date}>
+                <GridItem w="100%" h="10" bg="blue.500">{d.date}</GridItem>
+                <GridItem w="100%" h="10" bg="blue.500">{d.day.condition.text}</GridItem>
+                <GridItem w="100%" h="10" bg="blue.500">{d.day.avgtemp_c}&#176;C</GridItem>
+                <GridItem w="100%" h="10" bg="blue.500"><Image src={d.day.condition.icon} fallbackSrc="icon" /></GridItem>
+                <GridItem w="100%" h="10" bg="blue.500">{d.astro.sunrise}</GridItem>
+				<GridItem w="100%" h="10" bg="blue.500">{d.astro.sunset}</GridItem>
+            </Grid>
+			))}
         </div>
     );
 };

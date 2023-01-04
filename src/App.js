@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import Home from './components/Home/Home';
 
 
+
+
+
 const App = () => {
 	const [latitude, setLatitude] = useState(0);
 	const [longitude, setLongitude] = useState(0);
@@ -21,12 +24,14 @@ const App = () => {
 		}
 	}
 
+	
+
 	// const getBackgroundImg = async () => {
-    //     const url = `https://api.nasa.gov/planetary/apod?api_key=xNcuttatfbYyKQUtVGEo6523N29RmAcp90Q8EL7o&date=today&concept_tags=True`;
-    //     const res = await fetch(url);
-    //     const backgroundImg = await res.json();
-    //     setBackgroundImg(backgroundImg.url);
-    // };
+	//     const url = `https://api.nasa.gov/planetary/apod?api_key=xNcuttatfbYyKQUtVGEo6523N29RmAcp90Q8EL7o&date=today&concept_tags=True`;
+	//     const res = await fetch(url);
+	//     const backgroundImg = await res.json();
+	//     setBackgroundImg(backgroundImg.url);
+	// };
 
 	// console.log(backgroundImg);
 
@@ -38,12 +43,14 @@ const App = () => {
 
 	return (
 		<div className="App">
-				<Home longitude={longitude} latitude={latitude}/>
+			<Home geoLongitude={longitude} geoLatitude={latitude} />
 
-				{/* <img src={backgroundImg} alt="icon"/> */}
 			
+
+			{/* <img src={backgroundImg} alt="icon"/> */}
+
 		</div>
-		
+
 	);
 }
 
