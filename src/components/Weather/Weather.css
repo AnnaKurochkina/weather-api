@@ -1,0 +1,38 @@
+.forecast {
+  margin: 2rem;
+  border-radius: 1rem;
+}
+
+.forecast-day {
+  border: 1px inset #0a3950;
+  background-color: #105b81;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 1rem;
+}
+.forecast-day .forecast-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.forecast-day .forecast-item img {
+  justify-content: center;
+}
+
+.current-weather {
+  display: flex;
+  flex-direction: row;
+}
+.current-weather p {
+  padding: 1rem;
+}
+
+button {
+  color: darkblue;
+  font-weight: bold;
+  margin: 10px;
+  padding: 5px;
+}
