@@ -1,7 +1,12 @@
-p {
-	color: rgb(215, 141, 21);
-}
 
 .home {
-	padding: 2rem;
+	margin: 5rem;
+}
+
+.home__greeting {
+
+	p {
+		color: rgb(213, 232, 232);
+		width: 25rem;
+	}
 }

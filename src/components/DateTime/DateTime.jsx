@@ -13,7 +13,7 @@ const DateTime = () => {
     });
 
     return(
-        <div>
+        <div className="time">
             <h2> Date : {date.toLocaleDateString()}</h2>
             <h2> Time : {date.toLocaleTimeString()}</h2>
         </div>

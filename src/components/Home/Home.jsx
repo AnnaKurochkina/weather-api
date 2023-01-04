@@ -1,6 +1,5 @@
 import "./Home.scss";
 // import { Heading, Flex } from "@chakra-ui/react";
-// import { FaSun } from "react-icons/fa";
 import { FaSun, FaMoon, FaMugHot } from "react-icons/fa";
 import Weather from "../Weather/Weather";
 import DateTime from "../DateTime/DateTime";
@@ -14,22 +13,19 @@ import { HStack } from "@chakra-ui/react";
 
 
 const Home = ({ geoLongitude, geoLatitude }) => {
-    // const user = {
-    // 	firstName: "Anna",
-    //   };
 
     const currentHour = new Date().getHours();
     let greetingImg = <FaMugHot />;
-    let greetingTime = "Morning,";
+    let greetingTime = "Morning";
 
     if (currentHour >= 12) {
         greetingImg = <FaSun />;
-        greetingTime = "Afternoon,";
+        greetingTime = "Afternoon";
     }
 
     if (currentHour >= 18) {
         greetingImg = <FaMoon />;
-        greetingTime = "Evening,";
+        greetingTime = "Evening";
     }
 
 	const todosList = [
@@ -63,7 +59,7 @@ const Home = ({ geoLongitude, geoLatitude }) => {
 
     return (
         <div className="home">
-			<HStack>
+			{/* <HStack>
 			<VStack p={5}>
 
 <Text bgGradient="linear(to-l, #7928CA,#FF0080)"
@@ -77,7 +73,7 @@ const Home = ({ geoLongitude, geoLatitude }) => {
 <AddTodo addTodo={addTodo} />
 
 
-</VStack>
+</VStack> */}
             <DateTime />
             <div className="home__greeting">
                 <h1>
@@ -94,7 +90,7 @@ const Home = ({ geoLongitude, geoLatitude }) => {
                 </h1>
             </div>
 			
-			</HStack>
+			{/* </HStack> */}
         </div>
     );
 };

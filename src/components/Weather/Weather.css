@@ -1,11 +1,12 @@
 .forecast {
-  margin: 2rem;
+  margin: 2rem 0;
   border-radius: 1rem;
 }
 
 .forecast-day {
   border: 1px inset #0a3950;
   background-color: #105b81;
+  opacity: 0.8;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: auto;
@@ -25,14 +26,15 @@
 .current-weather {
   display: flex;
   flex-direction: row;
-}
-.current-weather p {
-  padding: 1rem;
+  width: 60%;
+  background-color: #0f5578;
+  opacity: 0.8;
 }
 
-button {
-  color: darkblue;
-  font-weight: bold;
-  margin: 10px;
-  padding: 5px;
+.weather {
+  padding-top: 2rem;
+}
+
+h3 {
+  padding: 1rem;
 }

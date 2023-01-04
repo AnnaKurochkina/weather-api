@@ -1,7 +1,8 @@
 import "./Weather.scss";
 import { useState, useEffect } from "react";
 import { Autocomplete, TextField } from "@mui/material";
-import { Grid, GridItem, Image  } from "@chakra-ui/react"
+import { Grid, GridItem, Image } from "@chakra-ui/react";
+import { purple, red } from "@mui/material/colors";
 
 const Weather = ({ geoLongitude, geoLatitude }) => {
     const [details, setDetails] = useState({});
@@ -15,10 +16,11 @@ const Weather = ({ geoLongitude, geoLatitude }) => {
     const [cityOptions, setCityOptions] = useState([]);
     const [currentLatitude, setCurrentLatitude] = useState(geoLatitude);
     const [currentLongitude, setCurrentLongitude] = useState(geoLongitude);
-
-    // const [search, setSearch] = useState("");
-    // const [searchImg, setSearchImg] = useState("url");
     const [city, setCity] = useState(null);
+
+    const primary = red[500]; // #f44336
+    // const accent = purple["A200"]; // #e040fb
+    // const accent = purple.A200; // #e040fb (alternative method)
 
     const getCities = async (searchTerm) => {
         const url = `http://api.weatherapi.com/v1/search.json?key=${process.env.REACT_APP_API_KEY}&q=${searchTerm}`;
@@ -54,23 +56,14 @@ const Weather = ({ geoLongitude, geoLatitude }) => {
         setWeatherForecast(dataForecast.forecast.forecastday);
     };
 
-    // const getSearchForecast = async (location) => {
-    //     const url = `http://api.weatherapi.com/v1/search.json?key=${process.env.REACT_APP_API_KEY}&q=${location.latitude},${location.longitude}`;
-    //     const res = await fetch(url);
-    //     const dataSearch = await res.json();
-    //     // setForecast(dataSearch);
-    //     setSearch(dataSearch.name);
-    //     // setSearchImg(dataSearch.url);
-    // };
-
     useEffect(() => {
         getLocationDetails();
         getForecast();
     }, [currentLatitude, currentLongitude]);
 
     return (
-        <div>
-            {/* <label>Enter location: </label> */}
+        <div className="weather">
+            <label>Enter location: </label>
             <Autocomplete
                 disablePortal
                 id="combo-box-demo"
@@ -83,11 +76,13 @@ const Weather = ({ geoLongitude, geoLatitude }) => {
                 }}
                 getOptionLabel={(option) => option.name}
                 options={cityOptions}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="City" />}
+                sx={{ width: 300, border: "#1a237e solid 2px" }}
+                renderInput={(params) => (
+                    <TextField {...params} label="Type city" sx={{ input: { color: '#e0f7fa' }, label: { color: '#29b6f6', fontSize: "1.5rem" } }} />
+                )}
             />
-            {/* <h3>Current weather in {locationName}: </h3> */}
-            {/* <div className="current-weather">
+            <h3>Current weather in {locationName}: </h3>
+            <div className="current-weather">
                 <img src={icon} alt="icon" />
                 <p>{temperature}&#176;C</p>
                 <p>{localWeather}</p>
@@ -114,9 +109,9 @@ const Weather = ({ geoLongitude, geoLatitude }) => {
                         </div>
                     </div>
                 ))}
-            </div> */}
+            </div>
 
-			{weatherForecast.map((d) => (
+            {/* {weatherForecast.map((d) => (
             <Grid templateColumns="repeat(6, 1fr)" gap={6} key={d.date}>
                 <GridItem w="100%" h="10" bg="blue.500">{d.date}</GridItem>
                 <GridItem w="100%" h="10" bg="blue.500">{d.day.condition.text}</GridItem>
@@ -125,13 +120,9 @@ const Weather = ({ geoLongitude, geoLatitude }) => {
                 <GridItem w="100%" h="10" bg="blue.500">{d.astro.sunrise}</GridItem>
 				<GridItem w="100%" h="10" bg="blue.500">{d.astro.sunset}</GridItem>
             </Grid>
-			))}
+			))} */}
         </div>
     );
 };
 
 export default Weather;
-
-{
-    /* <li key={d.date}>{d.date} {d.day.maxtemp_c} {d.day.mintemp_c}</li> */
-}

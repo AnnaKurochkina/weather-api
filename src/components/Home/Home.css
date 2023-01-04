@@ -1,7 +1,8 @@
-p {
-  color: #d78d15;
+.home {
+  margin: 5rem;
 }
 
-.home {
-  padding: 2rem;
+.home__greeting p {
+  color: #d5e8e8;
+  width: 25rem;
 }
