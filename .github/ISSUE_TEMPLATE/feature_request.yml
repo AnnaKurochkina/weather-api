@@ -1,18 +1,11 @@
 name: '🚀 New Feature'
 description: Request a new feature or enhancement
-title: '<title>'
+title: ''
 labels: ['enhancement']
 body:
-- type: checkboxes
-  attributes:
-    label: Is there an existing issue for this?
-    description: Please search to see if an issue already exists for the feature you are requesting.
-    options:
-    - label: I have searched the existing issues
-      required: true
 - type: textarea
+label: Description
   attributes:
-    label: Description
     description: A clear and concise description of the new feature or enhancement you are requesting.
   validations:
     required: true
